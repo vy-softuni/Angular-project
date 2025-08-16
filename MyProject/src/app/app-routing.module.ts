@@ -1,18 +1,27 @@
+/ src/app/app-routing.module.ts
+
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { NotFoundComponent } from './not-found/not-found.component';
+import { HomeComponent } from './components/home/home.component';
+import { NotFoundComponent } from './components/not-found/not-found.component';
 
 const routes: Routes = [
+  { path: '', pathMatch: 'full', redirectTo: '/home' },
+  { path: 'home', component: HomeComponent },
+  // Lazy loading feature modules
   {
-    path: 'home',
-    loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
+    path: 'auth',
+    loadChildren: () => import('./user/user.module').then(m => m.UserModule)
   },
-  { path: '', redirectTo: '/home/products', pathMatch: 'full' },
-  { path: '**', component: NotFoundComponent },
+  {
+    path: 'posts',
+    loadChildren: () => import('./posts/posts.module').then(m => m.PostsModule)
+  },
+  { path: '**', component: NotFoundComponent }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
+  exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

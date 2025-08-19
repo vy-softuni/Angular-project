@@ -1,0 +1,29 @@
+<div class="card elevated page-hero" style="margin-bottom:1rem;">
+  <div style="font-weight:700; font-size:1.2rem;">Explore Bulgarian Peaks</div>
+  <div class="text-sm text-muted">Search and filter hikes. Click a card to see details, map, likes, and comments.</div>
+</div>
+
+<div class="row mb-3">
+  <input [(ngModel)]="search" (input)="applyFilters()" class="input" placeholder="Search hikes..." />
+  <select [(ngModel)]="difficulty" (change)="applyFilters()" class="input" style="max-width:220px">
+    <option value="">All difficulties</option>
+    <option value="easy">Easy</option>
+    <option value="moderate">Moderate</option>
+    <option value="hard">Hard</option>
+  </select>
+  <button (click)="clearFilters()" class="btn ghost">Reset</button>
+</div>
+
+<div class="grid two">
+  <a *ngFor="let h of hs.filteredHikes$ | async"
+     [routerLink]="['/hike', h._id]"
+     class="card elevated" style="text-decoration:none;">
+    <img [src]="h.images?.[0] || 'assets/placeholder.png'"
+         (error)="onImgError($event)"
+         class="placeholder"
+         style="width:100%; height:180px; object-fit:cover; border-radius:6px; margin-bottom:.5rem;" />
+    <div class="font-semibold" style="font-weight:600; font-size:1.1rem;">{{ h.title }}</div>
+    <div class="text-sm text-muted">{{ h.distanceKm }} km - {{ h.difficulty | titlecase }} • By <a [routerLink]="['/profile', h.ownerId]" style="text-decoration:underline">{{ h.ownerName || '-' }}</a></div>
+    <p class="mt-2 text-sm">{{ h.description | truncate:160 }}</p>
+  </a>
+</div>

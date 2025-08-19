@@ -1,0 +1,19 @@
+<header class="header">
+  <div class="container" style="display:flex; align-items:center; justify-content:space-between; padding:.75rem 0;">
+    <a routerLink="/" style="font-weight:700; font-size:1.2rem;">TrailMix Pro</a>
+    <nav class="row">
+      <a routerLink="/catalog" routerLinkActive="active">Catalog</a>
+      <a routerLink="/profile/me" *ngIf="auth.isLoggedIn" routerLinkActive="active">My Profile</a>
+      <a routerLink="/admin" *ngIf="auth.currentUser?.role==='admin'" routerLinkActive="active" style="color:#b91c1c;">Admin</a>
+      <ng-container *ngIf="auth.isLoggedIn; else guest">
+        <a routerLink="/create" class="btn">Create</a>
+        <button (click)="auth.logout()" class="btn link">Logout</button>
+      </ng-container>
+      <ng-template #guest>
+        <a routerLink="/login">Login</a>
+        <a routerLink="/register">Register</a>
+      </ng-template>
+    </nav>
+  </div>
+  <div class="navbar-strip"></div>
+</header>

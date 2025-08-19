@@ -1,0 +1,10 @@
+<div class="card auth-card elevated">
+  <h1>Login</h1>
+  <div class="text-sm text-muted">Welcome to TrailMix Pro</div>
+  <form (ngSubmit)="submit()" class="grid" style="gap:.75rem; margin-top:.75rem;">
+    <input name="email" [(ngModel)]="email" required type="email" class="input" placeholder="Email" />
+    <input name="password" [(ngModel)]="password" required minlength="6" type="password" class="input" placeholder="Password" />
+    <button class="btn">Login</button>
+    <div *ngIf="error" class="text-sm" style="color:#b91c1c">{{ error }}</div>
+  </form>
+</div>

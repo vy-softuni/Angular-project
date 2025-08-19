@@ -1,0 +1,5 @@
+<button (click)="toggle.emit()" class="btn ghost">
+  <span *ngIf="liked">❤</span>
+  <span *ngIf="!liked">♡</span>
+  <span style="margin-left:.25rem">{{ count }}</span>
+</button>

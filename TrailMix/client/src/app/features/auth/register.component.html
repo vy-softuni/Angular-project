@@ -1,0 +1,12 @@
+<div class="card auth-card elevated">
+  <h1>Register</h1>
+  <div class="text-sm text-muted">Create an account</div>
+  <form (ngSubmit)="submit()" class="grid" style="gap:.75rem; margin-top:.75rem;">
+    <input name="email" [(ngModel)]="email" required type="email" class="input" placeholder="Email" />
+    <input name="displayName" [(ngModel)]="displayName" required class="input" placeholder="Display name" />
+    <input name="password" [(ngModel)]="password" required minlength="6" type="password" class="input" placeholder="Password" />
+    <input name="rePassword" [(ngModel)]="rePassword" required minlength="6" type="password" class="input" placeholder="Repeat password" />
+    <button class="btn">Create account</button>
+    <div *ngIf="error" class="text-sm" style="color:#b91c1c">{{ error }}</div>
+  </form>
+</div>

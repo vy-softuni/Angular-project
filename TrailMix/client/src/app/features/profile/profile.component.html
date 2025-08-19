@@ -1,0 +1,62 @@
+<div *ngIf="user" class="grid" style="gap:1rem;">
+  <section class="card elevated" style="display:flex; gap:1rem; align-items:center;">
+    <img [src]="user.avatarUrl || 'assets/placeholder.png'"
+         (error)="onImgError($event)"
+         style="width:96px; height:96px; border-radius:8px; object-fit:cover;" />
+    <div style="flex:1 1 auto;">
+      <div style="font-weight:700; font-size:1.1rem;">{{ user.displayName }}</div>
+      <div class="text-sm text-muted">{{ user.email }}</div>
+      <div class="text-sm mt-1">Role: <span style="font-weight:600">{{ user.role | titlecase }}</span></div>
+      <div class="text-sm mt-1">Hikes created: {{ myHikes.length }} • Likes: {{ liked.length }}</div>
+    </div>
+  </section>
+
+  <section *ngIf="isMe" class="card elevated">
+    <h2 class="mb-2">Edit profile</h2>
+    <div class="grid" style="gap:.5rem; max-width:520px;">
+      <label>
+        <div class="text-sm text-muted">Display name</div>
+        <input [(ngModel)]="edit.displayName" class="input" />
+      </label>
+      <label>
+        <div class="text-sm text-muted">Avatar URL</div>
+        <input [(ngModel)]="edit.avatarUrl" class="input" />
+      </label>
+
+      <tm-upload-box
+        [label]="'Or upload avatar'"
+        [currentUrl]="edit.avatarUrl || null"
+        (changed)="edit.avatarUrl = $event || ''">
+      </tm-upload-box>
+
+      <button (click)="save()" class="btn" [disabled]="saving">{{ saving ? 'Saving...' : 'Save' }}</button>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="mb-2">My Hikes</h2>
+    <div class="grid two">
+      <div *ngFor="let h of myHikes" class="card elevated">
+        <div style="font-weight:600;">{{ h.title }}</div>
+        <p class="text-sm mt-1">{{ h.description | truncate:140 }}</p>
+        <div class="mt-2 row">
+          <a [routerLink]="['/hike', h._id]" class="btn">View</a>
+          <a *ngIf="isMe" [routerLink]="['/edit', h._id]" class="btn warn">Edit</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2 class="mb-2">Liked Hikes</h2>
+    <div class="grid two">
+      <a *ngFor="let h of liked" [routerLink]="['/hike', h._id]" class="card elevated" style="text-decoration:none;">
+        <img [src]="h.images?.[0] || 'assets/placeholder.png'"
+             (error)="onImgError($event)"
+             style="width:100%; height:160px; object-fit:cover; border-radius:6px; margin-bottom:.5rem;" />
+        <div style="font-weight:600; font-size:1.05rem;">{{ h.title }}</div>
+        <div class="text-sm text-muted">{{ h.distanceKm }} km • {{ h.difficulty | titlecase }}</div>
+      </a>
+    </div>
+  </section>
+</div>

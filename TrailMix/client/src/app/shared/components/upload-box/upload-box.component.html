@@ -1,0 +1,28 @@
+<div class="uploader card elevated" [class.uploading]="uploading" (drop)="onDrop($event)" (dragover)="onDragOver($event)">
+  <div class="row" style="justify-content:space-between; align-items:center;">
+    <div>
+      <div style="font-weight:600;">{{ label }}</div>
+      <div class="text-sm text-muted">Drag & drop, or click to choose a file.</div>
+    </div>
+    <div class="row">
+      <input type="file" id="fileInput" (change)="onFileInput($event)" hidden />
+      <label class="btn info" for="fileInput">Upload</label>
+      <button class="btn secondary" *ngIf="currentUrl" (click)="preview()">Preview</button>
+      <button class="btn danger" *ngIf="currentUrl" (click)="clear()">Delete</button>
+    </div>
+  </div>
+
+  <div class="mt-2" *ngIf="currentUrl">
+    <ng-container *ngIf="isImageUrl(currentUrl); else fileBadge">
+      <img [src]="currentUrl" alt="preview" style="max-width: 320px; border-radius:8px; border:1px solid var(--c-border);" />
+    </ng-container>
+    <ng-template #fileBadge>
+      <div class="card" style="display:inline-flex; align-items:center; gap:.5rem; padding:.5rem .75rem;">
+        <span>📄</span>
+        <span>File attached</span>
+      </div>
+    </ng-template>
+  </div>
+
+  <div class="text-sm" style="color:#b91c1c" *ngIf="error">{{ error }}</div>
+</div>

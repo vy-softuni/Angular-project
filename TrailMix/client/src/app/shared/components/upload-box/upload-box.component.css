@@ -1,0 +1,2 @@
+.uploader { cursor: pointer; }
+.uploader.uploading { opacity: .7; pointer-events: none; }

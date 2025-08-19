@@ -1,0 +1,45 @@
+<div class="grid" style="gap:1.5rem;">
+  <section class="card elevated">
+    <h2 class="mb-2">Users</h2>
+    <div style="overflow:auto;">
+      <table style="width:100%; font-size:.95rem; border-collapse:collapse;">
+        <thead>
+          <tr style="text-align:left;">
+            <th class="text-sm" style="padding:.5rem; border-bottom:1px solid var(--c-border);">User</th>
+            <th class="text-sm" style="padding:.5rem; border-bottom:1px solid var(--c-border);">Display Name</th>
+            <th class="text-sm" style="padding:.5rem; border-bottom:1px solid var(--c-border);">Role</th>
+            <th class="text-sm" style="padding:.5rem; border-bottom:1px solid var(--c-border);">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let u of users" style="border-top:1px solid var(--c-border);">
+            <td style="padding:.5rem; display:flex; align-items:center; gap:.5rem;">
+              <img [src]="u.avatarUrl || 'assets/placeholder.png'" style="width:32px; height:32px; border-radius:50%; object-fit:cover; border:1px solid var(--c-border);" (error)="$event.target.src='assets/placeholder.png'"/>
+              <span>{{ u.email }}</span>
+            </td>
+            <td style="padding:.5rem;">{{ u.displayName }}</td>
+            <td style="padding:.5rem;">{{ u.role }}</td>
+            <td style="padding:.5rem;">
+              <button class="btn" (click)="promote(u)" *ngIf="u.role!=='admin'">Promote</button>
+              <button class="btn danger" (click)="demote(u)" *ngIf="u.role==='admin'">Demote</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card elevated">
+    <h2 class="mb-2">Hikes</h2>
+    <div class="grid two">
+      <div *ngFor="let h of hikes" class="card elevated">
+        <div style="font-weight:600;">{{ h.title }}</div>
+        <div class="text-sm text-muted">{{ h.distanceKm }} km • {{ h.difficulty | titlecase }}</div>
+        <div class="mt-2 row">
+          <a [routerLink]="['/hike', h._id]" class="btn">Open</a>
+          <a [routerLink]="['/edit', h._id]" class="btn warn">Edit</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

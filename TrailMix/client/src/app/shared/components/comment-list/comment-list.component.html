@@ -1,0 +1,12 @@
+<div class="grid" style="gap:.75rem;">
+  <div *ngFor="let c of comments" class="card">
+    <div class="text-sm text-muted">{{ c.authorName }} • {{ c.createdAt | dateAgo }}</div>
+    <div class="mt-2">{{ c.content }}</div>
+    <button *ngIf="auth.currentUser?._id === c.authorId" (click)="remove(c)" class="btn link mt-2">Delete</button>
+  </div>
+
+  <div class="row">
+    <input [(ngModel)]="content" class="input" placeholder="Add a comment..." />
+    <button (click)="add()" class="btn">Post</button>
+  </div>
+</div>

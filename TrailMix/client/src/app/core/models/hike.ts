@@ -1,0 +1,1 @@
+export interface Hike { _id: string; title: string; description: string; location:{lat:number;lng:number;name?:string}; distanceKm:number; difficulty:'easy'|'moderate'|'hard'; images:string[]; ownerId:string; ownerName?: string; likes:string[]; createdAt:string; updatedAt:string; }

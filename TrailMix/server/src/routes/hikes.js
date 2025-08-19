@@ -5,14 +5,15 @@ import { authOptional, authRequired } from '../middleware/auth.js';
 const router = Router();
 
 router.get('/', authOptional, async (_req, res) => {
-  const hikes = await Hike.find().sort({ createdAt: -1 });
-  res.json(hikes);
+  const hikes = await Hike.find().sort({ createdAt: -1 }).populate('ownerId', 'displayName');
+  const mapped = hikes.map(h => ({ ...h.toObject(), ownerName: h.ownerId?.displayName }));
+  res.json(mapped);
 });
 
 router.get('/:id', authOptional, async (req, res) => {
-  const item = await Hike.findById(req.params.id);
+  const item = await Hike.findById(req.params.id).populate('ownerId', 'displayName');
   if (!item) return res.status(404).json({ message: 'Not found' });
-  res.json(item);
+  res.json({ ...item.toObject(), ownerName: item.ownerId?.displayName });
 });
 
 router.post('/', authRequired, async (req, res) => {

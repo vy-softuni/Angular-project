@@ -9,12 +9,7 @@ const userSchema = new mongoose.Schema({
   role: { type: String, enum: ['user', 'admin'], default: 'user' }
 }, { timestamps: true });
 
-userSchema.virtual('password').set(function(pw) {
-  this.passwordHash = bcrypt.hashSync(pw, 10);
-});
-
-userSchema.methods.validatePassword = function(pw) {
-  return bcrypt.compareSync(pw, this.passwordHash);
-};
+userSchema.virtual('password').set(function(pw) { this.passwordHash = bcrypt.hashSync(pw, 10); });
+userSchema.methods.validatePassword = function(pw) { return bcrypt.compareSync(pw, this.passwordHash); };
 
 export default mongoose.model('User', userSchema);

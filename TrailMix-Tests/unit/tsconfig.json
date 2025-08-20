@@ -1,0 +1,21 @@
+{
+  "extends": "./node_modules/jest-preset-angular/tsconfig.json",
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "types": [
+      "jest",
+      "node"
+    ],
+    "esModuleInterop": true,
+    "allowJs": false,
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@project/*": [
+        "../../TrailMix/client/*"
+      ]
+    }
+  }
+}

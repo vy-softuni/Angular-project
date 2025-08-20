@@ -47,7 +47,7 @@ export class ProfileComponent implements OnInit {
       this.edit.displayName = u.displayName || '';
       this.edit.avatarUrl = u.avatarUrl || '';
     });
-    this.hs.loadAll().subscribe(h => { this.myHikes = (h || []).filter(x => x.ownerId === this.userId); });
+    this.users.hikes(this.userId).subscribe(list => this.myHikes = list);
     this.users.likes(this.userId).subscribe(list => this.liked = list);
   }
 

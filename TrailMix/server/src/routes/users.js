@@ -29,4 +29,14 @@ router.get('/:id/likes', async (req, res) => {
   res.json(hikes);
 });
 
+
+router.get('/:id/hikes', async (req, res) => {
+  try {
+    const hikes = await Hike.find({ ownerId: req.params.id }).sort({ createdAt: -1 });
+    res.json(hikes);
+  } catch (err) {
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
 export default router;

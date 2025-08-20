@@ -13,6 +13,7 @@ export class UsersService {
   me(): Observable<User> { return this.http.get<User>(`${this.baseUrl}/users/me`); }
   get(id: string): Observable<User> { return this.http.get<User>(`${this.baseUrl}/users/${id}`); }
   likes(id: string): Observable<Hike[]> { return this.http.get<Hike[]>(`${this.baseUrl}/users/${id}/likes`); }
+  hikes(id: string): Observable<Hike[]> { return this.http.get<Hike[]>(`${this.baseUrl}/users/${id}/hikes`); }
   updateMe(data: Partial<User>): Observable<User> { return this.http.put<User>(`${this.baseUrl}/users/me`, data); }
 
   listUsers(): Observable<User[]> { return this.http.get<User[]>(`${this.baseUrl}/admin/users`); }
